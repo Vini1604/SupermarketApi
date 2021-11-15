@@ -58,13 +58,28 @@ namespace SupermarketApi.Controllers
         }
 
         [HttpPut("{idProduct}")]
-        public ActionResult UpdateProduct(Guid idProduct, CreateUpdateProductDto UpdatedProduct){
-            return Ok();
+        public async Task<ActionResult> UpdateProduct(Guid idProduct, CreateUpdateProductDto UpdatedProduct){
+            var product = await _repository.GetProductById(idProduct);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            product.Name = UpdatedProduct.Name;
+            product.Price = UpdatedProduct.Price;
+            product.Department = UpdatedProduct.Department;
+            await _repository.UpdatedProduct(product);
+            return Ok(product);
         }
 
-        [HttpDelete("{id}")]
-        public ActionResult DeleteProduct(Guid idProduct){
-            return Ok();
+        [HttpDelete("{idProduct}")]
+        public async Task<ActionResult> DeleteProduct(Guid idProduct){
+            var product = await _repository.GetProductById(idProduct);
+            if (product == null)
+            {
+                return NotFound();
+            }
+            await _repository.DeleteProduct(product);
+            return Ok("Deleted");
         }
     }
 }

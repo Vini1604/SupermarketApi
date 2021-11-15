@@ -10,8 +10,8 @@ namespace SupermarketApi.Repositories
         Task<Product> GetProductById(Guid idProduct);
         Task<List<Product>> GetProductByDepartment(string department);
         Task CreateProduct(Product product);
-        void UpdatedProduct(Guid idProduct);
-        void DeleteProduct(Guid idProduct);
+        Task UpdatedProduct(Product product);
+        Task DeleteProduct(Product Product);
 
     }
 }

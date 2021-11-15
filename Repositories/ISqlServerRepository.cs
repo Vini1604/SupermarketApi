@@ -23,9 +23,10 @@ namespace SupermarketApi.Repositories
 
         }
 
-        public void DeleteProduct(Guid idProduct)
+        public async Task DeleteProduct(Product product)
         {
-            throw new NotImplementedException();
+            _db.Remove(product);
+            await _db.SaveChangesAsync();
         }
 
         public async Task<List<Product>> GetProductByDepartment(string department)
@@ -40,9 +41,11 @@ namespace SupermarketApi.Repositories
             return product;
         }
 
-        public void UpdatedProduct(Guid idProduct)
+        public async Task UpdatedProduct(Product product)
         {
-            throw new NotImplementedException();
+             _db.Update(product);
+             await _db.SaveChangesAsync();
+
         }
     }
 }

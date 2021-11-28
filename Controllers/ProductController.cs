@@ -78,7 +78,12 @@ namespace SupermarketApi.Controllers
             {
                 return NotFound();
             }
+            if (price < 1)
+            {
+                return BadRequest();
+            }
             product.Price = price;
+
             await _repository.UpdatedProduct(product);
             return Ok(product);
         }
